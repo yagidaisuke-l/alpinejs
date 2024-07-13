@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alpinejsの動作確認</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <header class="container-fluid bg-success text-white">
+    <p>alpinejsの試験ファイル</p>
+  </header><!-- /.container-fluid -->
+  <main>
+    <section class="container">
+
+    <h1 class="h5">カウントアップコンポーネント</h1><!-- /.h5 -->
+    <div x-data="{ count: 0,message: '現在カウント数 : ' }">
+      <button x-on:click="count++">カウントアップ</button>
+      <p x-text="message + count">
+      </p>
+    </div>
+      <div class="code-toolbar">
+        <pre>
+<code>&lt;div x-data="{ count: 0, message: '現在カウント数 : ' }"&gt;
+  &lt;button x-on:click="count++"&gt;カウントアップ&lt;/button&gt;
+  &lt;p x-text="message + count"&gt;&lt;/p&gt;
+&lt;/div&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+    <h1 class="h5">アラート表示コンポーネント</h1><!-- /.h5 -->
+    <div x-data="{ btn:'アラート表示' }" class="mb-5">
+      <button x-text="btn" x-on:click="alert('ここにアラート文章を表示します')">
+      </button>
+    </div>
+
+    <h1 class="h5">ドロップダウンコンポーネント</h1><!-- /.h5 -->
+    <div x-data="{ open:false }" class="mb-5">
+      <button x-on:click="open =! open">Toggle</button>
+      <div x-show="open" x-on:click.outside="open = false">Contents ....</div>
+    </div>
+
+    <h1 class="h5">検索コンポーネント</h1><!-- /.h5 -->
+    <div x-data="{
+            search: '',
+
+            items: ['foo', 'bar', 'baz'],
+
+            get filteredItems() {
+                return this.items.filter(
+                    i => i.startsWith(this.search)
+                )
+            }
+        }">
+      <input x-model="search" placeholder="Search...">
+    
+      <ul>
+        <template x-for="item in filteredItems" :key="item">
+          <li x-text="item"></li>
+        </template>
+      </ul>
+    </div>
+    </section><!-- /.container -->
+  </main>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
