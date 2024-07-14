@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alpinejsの動作確認</title>
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <header class="container-fluid bg-success text-white">
+    <p>alpinejsの試験ファイル</p>
+  </header><!-- /.container-fluid -->
+  <main>
+    <div x-data="dropdown">
+      <button x-bind="trigger">xxxxx</button>
+      <div x-bind="dialogue">yyyyyy</div>
+    </div>
+
+    <div x-data="dropdown">
+      <button x-bind="trigger">xxxxx</button>
+      <div x-bind="dialogue">hogehoge</div>
+    </div>
+
+    <div x-data="dropdown">
+      <button x-bind="trigger">xxxxx</button>
+      <div x-bind="dialogue">mogemoge</div>
+    </div>
+
+    <div x-data="dropdown">
+      <button x-bind="colorSet">Toggle Dark Mode</button>
+      <div x-data :class="$store.darkMode && 'bg-black'" class="text-success">
+        テスト
+      </div>
+    </div>
+  </main>
+    <script src="../node_modules/alpinejs/dist/cdn.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('alpine:init', () => {
+      Alpine.data('dropdown', () => ({
+        open: false,
+
+        trigger: {
+          ['@click']() {
+            this.open = !this.open;
+          },
+        },
+        colorSet: {
+          ['@click']() {
+            this.$store.darkMode = !this.$store.darkMode;
+          },
+        },
+
+        dialogue: {
+          ['x-show']() {
+            return this.open;
+          },
+        },
+      }));
+
+      Alpine.store('darkMode', false);
+      });
+
+      Alpine.start();
+    </script>
+</body>
+</html>
